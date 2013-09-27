@@ -56,19 +56,19 @@ function git_prompt_config()
   GIT_PROMPT_CLEAN="${BoldGreen}✔"
 
   # Various variables you might want for your PS1 prompt instead
-  local Time12a="\$(date +%H:%M)"
+  local Time12a="[\t]"
   # local Time12a="(\$(date +%H:%M:%S))"
   # local Time12a="(\@))"
   local PathShort="\w"
 
   if [ "x${GIT_PROMPT_START}" == "x" ]; then
-    PROMPT_START="${Yellow}${PathShort}${ResetColor}"
+    PROMPT_START="${Red}${Time12a}${ResetColor}"
   else
     PROMPT_START="${GIT_PROMPT_START}"
   fi
 
   if [ "x${GIT_PROMPT_END}" == "x" ]; then
-    PROMPT_END=" \n${White}${Time12a}${ResetColor} $ "
+    PROMPT_END="${White}${PathShort}${ResetColor}$ "
   else
     PROMPT_END="${GIT_PROMPT_END}"
   fi
@@ -152,7 +152,7 @@ function updatePrompt() {
   local GIT_CLEAN=${GitStatus[6]}
 
   if [[ -n "${GitStatus}" ]]; then
-    local STATUS=" ${GIT_PROMPT_PREFIX}${GIT_PROMPT_BRANCH}${GIT_BRANCH}${ResetColor}"
+    local STATUS="${GIT_PROMPT_PREFIX}${GIT_PROMPT_BRANCH}${GIT_BRANCH}${ResetColor}"
 
     if [[ -n "${GIT_REMOTE}" ]]; then
       STATUS="${STATUS}${GIT_PROMPT_REMOTE}${GIT_REMOTE}${ResetColor}"
