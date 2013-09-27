@@ -75,6 +75,10 @@ function git_prompt_config()
 
   EMPTY_PROMPT="${PROMPT_START}${PROMPT_END}"
 
+  if [[ -n "${VIRTUAL_ENV}" ]]; then
+    EMPTY_PROMPT="($(basename "${VIRTUAL_ENV}"))${EMPTY_PROMPT}"
+  fi
+
   # fetch remote revisions every other $GIT_PROMPT_FETCH_TIMEOUT (default 5) minutes
   GIT_PROMPT_FETCH_TIMEOUT=${1-5}
   if [ "x$__GIT_STATUS_CMD" == "x" ]
@@ -184,7 +188,7 @@ function updatePrompt() {
 
     PS1="${PROMPT_START}${STATUS}${PROMPT_END}"
     if [[ -n "${VIRTUAL_ENV}" ]]; then
-      PS1="${Blue}($(basename "${VIRTUAL_ENV}"))${ResetColor} ${PS1}"
+      PS1="${Blue}($(basename "${VIRTUAL_ENV}"))${ResetColor}${PS1}"
     fi
 
   else
